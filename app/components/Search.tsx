@@ -1,29 +1,32 @@
-'use client'
+'use client';
 
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-export default function Search() {
+export default function Search({ reachBackend, setImgId }) {
+  const [search, setSearch] = useState('cats');
 
-    const [search, setSearch] = useState('')
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.target.value)
-        console.log(search)
-    }
-
-    return (
-        <div>
-            <input 
-                type="text" 
-                name='search' 
-                placeholder="Search art..." 
-                onChange={handleInputChange}
-                id='search'
-            />
-            <input 
-                type="submit"
-                name="search"
-            />
-        </div>
-    )
+  return (
+    <div>
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          setImgId(await reachBackend(search));
+        }}
+      >
+        <input
+          type="text"
+          name="search"
+          placeholder="Search art..."
+          onChange={handleInputChange}
+          id="search"
+          value={search}
+        />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  );
 }
