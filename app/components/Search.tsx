@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 
-export default function Search({ reachBackend, setImgId }) {
+export default function Search({ reachBackend, setSearchResults }) {
   const [search, setSearch] = useState('cats');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,7 +14,7 @@ export default function Search({ reachBackend, setImgId }) {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          setImgId(await reachBackend(search));
+          setSearchResults(await reachBackend(search));
         }}
       >
         <input
