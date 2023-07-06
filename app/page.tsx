@@ -61,7 +61,15 @@ export default function Home() {
   }, [searchResults, searchResultsIndex]);
 
   const handleNextClick = () => {
-    setSearchResultsIndex(searchResultsIndex + 1);
+    if (searchResultsIndex < searchResults.length - 1) {
+      setSearchResultsIndex(searchResultsIndex + 1);
+    }
+  };
+
+  const handlePrevClick = () => {
+    if (searchResultsIndex > 0) {
+      setSearchResultsIndex(searchResultsIndex - 1);
+    }
   };
   return (
     <main>
@@ -73,7 +81,18 @@ export default function Home() {
               src={`https://www.artic.edu/iiif/2/${imgId}/full/843,/0/default.jpg`}
               alt="art"
             />
-            <button onClick={handleNextClick}>next</button>
+            <button
+              onClick={handlePrevClick}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              prev
+            </button>
+            <button
+              onClick={handleNextClick}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              next
+            </button>
           </div>
         ) : null}
         <Search
