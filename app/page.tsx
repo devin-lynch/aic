@@ -7,6 +7,7 @@ export default function Home() {
   const [searchResults, setSearchResults] = useState();
   const [imgId, setImgId] = useState();
   const [searchResultsIndex, setSearchResultsIndex] = useState(0);
+  const [saveButtonText, setSaveButtonText] = useState('save');
 
   const reachBackend = async (search) => {
     try {
@@ -63,14 +64,36 @@ export default function Home() {
   const handleNextClick = () => {
     if (searchResultsIndex < searchResults.length - 1) {
       setSearchResultsIndex(searchResultsIndex + 1);
+      setSaveButtonText('save');
     }
   };
 
   const handlePrevClick = () => {
     if (searchResultsIndex > 0) {
       setSearchResultsIndex(searchResultsIndex - 1);
+      setSaveButtonText('save');
     }
   };
+
+  const handleSaveClick = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/save', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          imgId,
+        }),
+      });
+      const data = await response.json();
+      setSaveButtonText('saved!');
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <main>
       <div>
@@ -86,6 +109,12 @@ export default function Home() {
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               prev
+            </button>
+            <button
+              onClick={handleSaveClick}
+              className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              {saveButtonText}
             </button>
             <button
               onClick={handleNextClick}
