@@ -95,13 +95,15 @@ export default function Home() {
   return (
     <main>
       <div>
-        <p>test</p>
+        <h2>Art Institute of Chicago</h2>
         {imgId ? (
           <div>
-            <img
-              src={`https://www.artic.edu/iiif/2/${imgId}/full/843,/0/default.jpg`}
-              alt="art"
-            />
+            <div className=''>
+              <img
+                src={`https://www.artic.edu/iiif/2/${imgId}/full/843,/0/default.jpg`}
+                alt="art"
+              />
+            </div>
             <button
               onClick={handlePrevClick}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -126,6 +128,9 @@ export default function Home() {
           reachBackend={reachBackend}
           setSearchResults={setSearchResults}
         />
+      </div>
+      <div>
+        <a href="http://localhost:3000/collection"><button className='bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded'>collection</button></a>
       </div>
     </main>
   );
