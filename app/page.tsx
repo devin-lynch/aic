@@ -77,7 +77,7 @@ export default function Home() {
 
   const handleSaveClick = async () => {
     try {
-      const response = await fetch('http://localhost:8000/save', {
+      await fetch('http://localhost:8000/save', {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -86,9 +86,7 @@ export default function Home() {
           imgId,
         }),
       });
-      const data = await response.json();
       setSaveButtonText('saved!');
-      return data;
     } catch (error) {
       console.log(error);
     }
